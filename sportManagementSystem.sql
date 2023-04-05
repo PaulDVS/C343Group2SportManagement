@@ -87,6 +87,45 @@ VALUES
 	(4,'Real Madrid','Santiago Bernabéu','Spain'),
     (5,'Bayern Munich','Allianz Arena','Germany');
     
+INSERT INTO pPosition(positionId, positionName)
+VALUES
+	(0,'Bench'),
+	(1,'Goal Keeper'),
+    (2,'Forward'),
+	(3,'Mid-Field'),
+	(4,'Defence');
+
+INSERT INTO player(playerId,playerName,positionId,teamId)
+VALUES
+	(1,'John Smith',1,1),
+	(2,"Alan Smith",2,1),
+	(3,"Nelson Smith",3,1),
+	(4,"Greg Smith",4,1),
+	(5,"Daniel Smith",0,1),
+	(6,"Robert Addams",1,2),
+	(7,"Jason Addams",2,2),
+	(8,"Steve Addams",3,2),
+	(9,"Alan Addams",4,2),
+	(10,"Jack Addams",0,2),
+	(11,"Greg White",1,3),
+	(12,"Liam White",2,3),
+	(13,"Alex White",3,3),
+	(14,"Claude White",4,3),
+	(15,"Chris White",0,3),
+	(16,"Liam Chance",1,4),
+	(17,"Noah Chance",2,4),
+	(18,"Steve Chance",3,4),
+	(19,"Lucas Chance",4,4),
+	(20,"Oliver Chance",0,4),
+	(21,"Alex Thatcher",1,5),
+	(22,"Greg Thatcher",2,5),
+	(23,"Lucas Thatcher",3,5),
+	(24,"William Thatcher",4,5),
+	(25,"James Thatcher",0,5);
+
+
+
+
 
             
             
