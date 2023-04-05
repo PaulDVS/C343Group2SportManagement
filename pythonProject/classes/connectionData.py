@@ -1,6 +1,6 @@
 
 def myConnection(): #Paul's connection info
-    connection_Config_Dict = {
+    connection_Config_Dict_Paul = {
         'user' : 'root',
         'password' : 'root',
         'host' : '127.0.0.1',
@@ -9,7 +9,26 @@ def myConnection(): #Paul's connection info
         'raise_on_warnings': True,
         'auto-commit':True,
     }
-    return connection_Config_Dict
+
+    connection_Config_Dict_Aadil = {
+        'user' : 'root',
+        'password': 'Aadil123!',
+        'host' : 'localhost',
+        'database' : 'sportmanagementsystem',
+        'raise_on_warnings': True,
+        'auto-commit': True,
+    }
+
+    connection_Config_Dict_Doha = {
+        'user' : 'root',
+        'password' : 'SaDa2903!',
+        'host' : 'localhost',
+        'database' : 'sportmanagementsystem',
+        'raise_on_warnings': True,
+        'auto-commit': True,
+    }
+
+    return connection_Config_Dict_Paul
 
 
 def aadil_connection():
