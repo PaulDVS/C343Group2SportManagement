@@ -1,4 +1,4 @@
-from classes.teamClass import deleteTeam, addTeam, get_team_by_id, getAllTeams, getAllPlayers, getTeamMatches
+from classes.teamClass import check_team_id, get_team_by_id, deleteTeam, addTeam, get_team_by_id, getAllTeams, getAllPlayers, getTeamMatches
 from classes.playerClass import check_player_id,get_player_by_id,Player
 from classes.competitionClass import check_competition_id,get_competition_by_id, Competition
 from classes.matchClass import check_match_id,get_match_by_id, Match
@@ -11,7 +11,7 @@ def compMenu():
     while (ch != "9"):
         print("Competition Menu: ")
         print("1: Create Competition, 2: Update Competition, 3: Print Competition Details")
-        print("4: Print All Teams in Competition, 5: Print All Matchs in Competition")
+        print("4: Print All Teams in Competition, 5: Print All Matches in Competition")
         print("9: End")
         print("Please enter your choice: ")
         ch = input()
@@ -83,15 +83,21 @@ def matchMenu():
         if (ch == "1"):
             print("Please enter the id of team 1:")
             id_1 = input()
-            #check if id exists
+            if not(check_team_id(id_1)):
+                print("Team doesn't exist")
+                continue
 
             print("Please enter the id of team 2:")
             id_2 = input()
-            # check if id exists
+            if not (check_team_id(id_2)):
+                print("Team doesn't exist")
+                continue
 
             print("Please enter the id of competition:")
             id_comp = input()
-            # check if id exists
+            if not (check_competition_id(id_comp)):
+                print("Competition doesn't exist")
+                continue
 
             print("Please enter location of the match:")
             location = input()
@@ -114,15 +120,21 @@ def matchMenu():
 
             print("Please enter the id of team 1:")
             id_1 = input()
-            # check if id exists
+            if not (check_team_id(id_1)):
+                print("Team doesn't exist")
+                continue
 
             print("Please enter the id of team 2:")
             id_2 = input()
-            # check if id exists
+            if not (check_team_id(id_2)):
+                print("Team doesn't exist")
+                continue
 
             print("Please enter the id of competition:")
             id_comp = input()
-            # check if id exists
+            if not (check_competition_id(id_comp)):
+                print("Competition doesn't exist")
+                continue
 
             print("Please enter location of the match:")
             location = input()
