@@ -60,7 +60,7 @@ class Match:
             connection = mysql.connector.connect(**connectionData.myConnection())
 
             mysql_Query = """
-                INSERT INTO GAME(location, team1Id, team2Id, score, competitionId) VALUES
+                INSERT INTO game(location, team1Id, team2Id, score, competitionId) VALUES
                 (%s, %s, %s)"""
 
             cursor = connection.cursor()
@@ -71,14 +71,31 @@ class Match:
             print("Error with SQL", e)
 
     def updateMatch(self):
-        pass
+        try:
+            connection = mysql.connector.connect(**connectionData.myConnection())
 
-    def printBasic(self):
-        pass
+            mysql_Query = """
+                UPDATE game
+                SET location= %s, team1Id= %s, team2Id= %s,  score= %s, competitionId= %s
+                WHERE gameId = %s"""
+
+            cursor = connection.cursor()
+            cursor.execute(mysql_Query,
+                           (self.location, self.team1_id, self.team2_id, self.match_score, self.competition_id, self.match_id))
+
+        except Error as e:
+            print("Error with SQL", e)
 
     def printMatchDetails(self):
-        pass
-
+        print("Match id: ",self.match_id)
+        print("Score:",self.match_score)
+        print("Team 1:", end=" ")
+        #Get print team 1 name
+        print("Team 2:", end=" ")
+        # Get print team 2 name
+        print("At "+ self.location)
+        print("Competition:", end=" ")
+        # Get competition name
 
 
 
