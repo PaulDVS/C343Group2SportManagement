@@ -1,4 +1,4 @@
-import mysql.connector
+import MySQLdb
 
 
 def myConnection(): #Paul's connection info
@@ -25,7 +25,14 @@ def aadil_connection():
 
     return connection_config_dict
 
-
+def doha_myConnection():
+    connection_config_dict = {
+        'user' : 'root',
+        'password' : 'SaDa2903!',
+        'host' : 'localhost',
+        'database' : 'sportmanagementsystem',
+    }
+    return connection_config_dict
 
 
 

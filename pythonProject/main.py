@@ -1,3 +1,5 @@
+from classes.teamClass import deleteTeam, addTeam
+
 
 #Menu functions
 def compMenu():
@@ -34,22 +36,24 @@ def teamMenu():
     while (ch != "9"):
         print("Team Menu: ")
         print("1: Create Team, 2: Update Team, 3: Print Team Details")
-        print("4: Print Team Players, 5: Print Team Matches")
+        print("4: Print Team Players, 5: Print Team Matches, 6: Delete Team")
         print("9: End")
         print("Please enter your choice: ")
         ch = input()
         print()
 
         if (ch == "1"):
-            print("x")
+            addTeam()
         elif (ch == "2"):
             print("x")
         elif (ch == "3"):
             print("x")
         elif (ch == "4"):
             print("x")
-        elif (ch == "4"):
+        elif (ch == "6"):
             print("x")
+        elif (ch =='6'):
+            deleteTeam()
         elif (ch == "9"):
             print("Returning to Main")
         else:
