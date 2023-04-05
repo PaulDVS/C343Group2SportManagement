@@ -19,14 +19,11 @@ class Competition:
     def addCompetition(self):
         pass
 
-    def deleteCompetition(self):
-        pass
-
-    def getCompetitionById(self):
-        pass
-
-    def getAllCompetitions(self):
-        pass
-
     def updateCompetition(self):
+        pass
+
+    def printBasic(self):
+        pass
+
+    def printDetails(self):
         pass

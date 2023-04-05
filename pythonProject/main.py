@@ -1,4 +1,6 @@
 from classes.teamClass import deleteTeam, addTeam, get_team_by_id, getAllTeams, getAllPlayers, getTeamMatches
+from classes.playerClass import check_player_id,get_player_by_id,Player
+from classes.competitionClass import check_competition_id,get_competition_by_id, Competition
 from classes.matchClass import check_match_id,get_match_by_id, Match
 
 
