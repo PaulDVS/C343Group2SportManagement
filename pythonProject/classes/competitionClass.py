@@ -2,6 +2,7 @@ import pymysql
 from pymysql import Error
 
 from classes import connectionData
+from classes.matchClass import Match
 
 def check_competition_id(comp_id):
     try:
@@ -90,8 +91,44 @@ class Competition:
         print("Level:",self.level)
 
     def getAllCompteams(self):
-        pass
+        try:
+            connection = pymysql.connect(**connectionData.myConnection())
+
+            mysql_Query = """
+                Select *
+                FROM team
+                INNER JOIN teamcompetition ON team.teamId = teamcompetition.teamId
+                WHERE teamcompetition.competitionId = %s
+                """
+
+            cursor = connection.cursor()
+            cursor.execute(mysql_Query, (self.competition_id,))
+            result = cursor.fetchall()
+
+            for x in result:
+                print("ID:",x[0],"Name:",x[1],"Country:",x[3])
+
+        except Error as e:
+            print("Error with SQL", e)
 
 
     def getAllCompMatches(self):
-        pass
+        try:
+            connection = pymysql.connect(**connectionData.myConnection())
+
+            mysql_Query = """
+                Select *
+                FROM game
+                WHERE competitionId = %s"""
+
+            cursor = connection.cursor()
+            cursor.execute(mysql_Query, (self.competition_id,))
+            result = cursor.fetchall()
+
+            for x in result:
+                print()
+                currMatch = Match(x[0],x[2],x[3],x[5],x[1],x[4])
+                currMatch.printMatchDetails()
+
+        except Error as e:
+            print("Error with SQL", e)

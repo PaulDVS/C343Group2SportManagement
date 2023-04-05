@@ -1,12 +1,12 @@
 import pymysql
 from pymysql import Error
 
-from pythonProject.classes import connectionData
+from classes import connectionData
 
 
 def check_match_id(match_id):
     try:
-        connection = pymysql.connector.connect(**connectionData.myConnection())
+        connection = pymysql.connect(**connectionData.myConnection())
 
         mysql_Query = """
             Select *
@@ -27,7 +27,7 @@ def check_match_id(match_id):
 
 def get_match_by_id(match_id):
     try:
-        connection = pymysql.connector.connect(**connectionData.myConnection())
+        connection = pymysql.connect(**connectionData.myConnection())
 
         mysql_Query = """
             Select *
@@ -57,7 +57,7 @@ class Match:
 
     def addMatch(self):
         try:
-            connection = pymysql.connector.connect(**connectionData.myConnection())
+            connection = pymysql.connect(**connectionData.myConnection())
 
             mysql_Query = """
                 INSERT INTO game(location, team1Id, team2Id, score, competitionId) VALUES
@@ -72,7 +72,7 @@ class Match:
 
     def updateMatch(self):
         try:
-            connection = pymysql.connector.connect(**connectionData.myConnection())
+            connection = pymysql.connect(**connectionData.myConnection())
 
             mysql_Query = """
                 UPDATE game
