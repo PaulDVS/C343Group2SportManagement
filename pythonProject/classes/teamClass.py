@@ -1,5 +1,7 @@
 import pymysql
-import connectionData
+
+from pythonProject.classes import connectionData
+#import connectionData
 
 def check_team_id(team_id):
     #config = connectionData.aadil_connection()
@@ -28,8 +30,8 @@ def get_team_by_id(team_id):
     # result is just one team as ids are unique hence select the first result([0])
     result = my_cursor.fetchall()[0]
 
-    # first index is id second is name ..etc
-    return Team(result[0], result[1], result[2], result[3])
+    # first index is id second is name ...etc
+    print(Team(result[0], result[1], result[2], result[3]))
 
 
 class Team:

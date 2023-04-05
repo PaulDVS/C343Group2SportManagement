@@ -1,4 +1,4 @@
-from classes.teamClass import deleteTeam, addTeam
+from classes.teamClass import deleteTeam, addTeam,get_team_by_id
 
 
 #Menu functions
@@ -44,18 +44,19 @@ def teamMenu():
 
         if (ch == "1"):
             addTeam()
-            print("x")
+            #print("x")
         elif (ch == "2"):
             print("x")
         elif (ch == "3"):
-            print("x")
+            team_id = int(input("Enter team id: "))
+            get_team_by_id(team_id)
         elif (ch == "4"):
             print("x")
         elif (ch == "6"):
             print("x")
         elif (ch =='6'):
             deleteTeam()
-            print("x")
+            #print("x")
         elif (ch == "9"):
             print("Returning to Main")
         else:
