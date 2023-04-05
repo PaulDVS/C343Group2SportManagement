@@ -137,7 +137,6 @@ def getTeamMatches():
     cursor = conn.cursor()
     userInput=int(input("Enter team id: "))
     cursor.execute('select * from game where team1Id=%s or team2Id=%s',(userInput,userInput))
-    cursor.execute('select * from game where team2Id=%s', userInput)
     x = cursor.fetchall()
     space = '%18s %18s %18s %18s %18s %18s'
     print(space % ('Id', 'Location', 'Team 1 Id', 'Team 2 Id', 'Score', 'Competition Id'))

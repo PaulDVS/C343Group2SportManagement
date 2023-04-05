@@ -25,7 +25,7 @@ def myConnection(): #Paul's connection info
         'raise_on_warnings': True
     }
 
-    return connection_Config_Dict_Paul
+    return connection_Config_Dict_Doha
 
 
 def aadil_connection():

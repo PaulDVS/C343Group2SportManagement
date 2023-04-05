@@ -1,7 +1,10 @@
 import pymysql
 
+from pythonProject.classes import connectionData
+
+
 #from pythonProject.classes import connectionData
-import connectionData
+
 
 
 def check_player_id(player_id):
