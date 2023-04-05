@@ -2,7 +2,7 @@ import pymysql
 from pymysql import Error
 
 from classes import connectionData
-import classes
+
 from classes.teamClass import get_team_by_id, Team
 from classes.competitionClass import get_competition_by_id, Competition
 
@@ -63,7 +63,7 @@ class Match:
 
             mysql_Query = """
                 INSERT INTO game(location, team1Id, team2Id, score, competitionId) VALUES
-                (%s, %s, %s)"""
+                (%s, %s, %s, %s, %s)"""
 
             cursor = connection.cursor()
             cursor.execute(mysql_Query, (self.location, self.team1_id, self.team2_id, self.match_score, self.competition_id))
