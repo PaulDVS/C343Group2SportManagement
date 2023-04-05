@@ -16,8 +16,20 @@ def check_team_id(team_id):
     return True
 
 
-def get_team_by_id(match_id):
-    pass
+def get_team_by_id(team_id):
+    config = connectionData.aadil_connection()
+    my_db = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+
+    my_cursor = my_db.cursor()
+    sql = f"SELECT * FROM team WHERE teamId = {team_id}"
+    my_cursor.execute(sql)
+
+    # result is just one team as ids are unique hence select the first result([0])
+    result = my_cursor.fetchall()[0]
+
+    # first index is id second is name ..etc
+    return Team(result[0], result[1], result[2], result[3])
+
 
 class Team:
     def __init__(self, team_id, name, home, country):
@@ -55,5 +67,6 @@ class Team:
 
     def updateTeam(self):
         pass
+
 
 

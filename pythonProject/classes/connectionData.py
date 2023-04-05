@@ -1,5 +1,3 @@
-import MySQLdb
-
 
 def myConnection(): #Paul's connection info
     connection_Config_Dict = {
