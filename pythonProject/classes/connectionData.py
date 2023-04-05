@@ -12,4 +12,20 @@ def myConnection(): #Paul's connection info
         'auto-commit':True,
     }
 
-    return connection_Config_Dict
+
+def aadil_connection():
+
+    connection_config_dict = {
+        'user' : 'root',
+        'password': 'Aadil123!',
+        'host' : 'localhost',
+        'database' : 'sportmanagementsystem'
+    }
+
+    return connection_config_dict
+
+
+
+
+
+
