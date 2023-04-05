@@ -1,4 +1,5 @@
 import pymysql
+from pymysql import Error
 
 from pythonProject.classes import connectionData
 
@@ -7,7 +8,6 @@ from pythonProject.classes import connectionData
 #import connectionData
 
 def check_team_id(team_id):
-    #config = connectionData.aadil_connection()
     config = connectionData.myConnection()
     my_db = pymysql.connect(host=config['host'],user=config['user'],passwd=config['password'],database=config['database'])
 
@@ -35,8 +35,8 @@ def get_team_by_id(team_id):
         result = my_cursor.fetchall()[0]
 
         # first index is id second is name ...etc
-        #print ("Id:",result[0], " Team Name:", result[1], " Team Home:",result[2], " Team Country:",result[3])
-        return(Team(result[0],result[1],result[2],result[3]))
+        print ("Id:",result[0], " Team Name:", result[1], " Team Home:",result[2], " Team Country:",result[3])
+        #return(Team(result[0],result[1],result[2],result[3]))
     except:
         print("Record not found!")
 
@@ -53,99 +53,104 @@ class Team:
 
     def basicPrint(self):
         print(self.id,self.name)
+    def printTeamDetails(self):
+        print("Team id: ",self.team_id)
+        print("Team Name:",self.name)
+        print("Team Home:", self.home)
+        print("Team Country: ",self.country)
 
-def addTeam():
-    config = connectionData.myConnection()
-    conn = pymysql.connect(host=config['host'],user=config['user'],passwd=config['password'],database=config['database'])
-    cursor = conn.cursor()
+    def addTeam(self):
+        try:
+            config = connectionData.myConnection()
+            conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+            cursor = conn.cursor()
 
-    id = int(input("Enter team id: "))
-    name = input("Enter team name: ")
-    home = input("Enter team home: ")
-    country = input("Enter team country: ")
-    cmd = 'insert into team values(%s,%s,%s,%s)'
-    rec = [id, name, home, country]
-    cursor.execute(cmd,rec)
-    conn.commit()
+            mysql_Query = 'INSERT INTO team(teamId, teamName, teamHome, teamCountry) VALUES (%s, %s, %s, %s)'
+            cursor.execute(mysql_Query,(self.team_id, self.name, self.home, self.country))
+            conn.commit()
+        except Error as e:
+            print("Error adding team to database!", e)
+    def deleteTeam(self):
+        try:
+            config = connectionData.myConnection()
+            conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+            cursor = conn.cursor()
 
-def deleteTeam():
-    try:
+            cursor.execute('select * from team')
+            x = cursor.fetchall()
+            ans = int(input('Enter the team id to be deleted:'))
+            for i in x:
+                i = list(i)
+                if i[0] == ans:
+                    cmd = 'delete from team where teamId=%s'
+                    val = (i[0],)
+                    cursor.execute(cmd, val)
+                    conn.commit()
+                    print('Team deleted.')
+                    break
+        except:
+            print("Error deleting record!")
+
+
+    def getAllTeams(self):
+        try:
+            config = connectionData.myConnection()
+            conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+            cursor = conn.cursor()
+            cursor.execute('select * from team order by teamId')
+            x = cursor.fetchall()
+            space = '%18s %18s %18s %18s'
+            print(space % ('Id', 'Name', 'Home', 'Country'))
+            print('=' * 150)
+            for i in x:
+                for j in i:
+                    print('%19s' % j, end=' ')
+                print()
+            print('=' * 150)
+        except:
+            print("Table doesn't exist.")
+
+    def updateTeam(self):
+        try:
+            config = connectionData.myConnection()
+            conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+            cursor = conn.cursor()
+
+            mysql_Query = 'UPDATE team SET teamName= %s, teamHome= %s, teamCountry= %s WHERE teamId = %s'
+            cursor.execute(mysql_Query,(self.name, self.home, self.country,self.team_id))
+            conn.commit()
+
+        except Error as e:
+            print("Error updating database!", e)
+
+    def getAllPlayers(self):
         config = connectionData.myConnection()
         conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
         cursor = conn.cursor()
-
-        cursor.execute('select * from team')
-        x = cursor.fetchall()
-        ans = int(input('Enter the team id to be deleted:'))
-        for i in x:
-            i = list(i)
-            if i[0] == ans:
-                cmd = 'delete from team where teamId=%s'
-                val = (i[0],)
-                cursor.execute(cmd, val)
-                conn.commit()
-                print('Team deleted.')
-                break
-            else:
-                print('Record not found.')
-    except:
-        print("Table doesn't exist.")
-
-
-def getAllTeams():
-    try:
-        config = connectionData.myConnection()
-        conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
-        cursor = conn.cursor()
-        cursor.execute('select * from team order by teamId')
+        userInput=int(input("Enter team id: "))
+        cursor.execute('select * from player where teamId=%s',userInput)
         x = cursor.fetchall()
         space = '%18s %18s %18s %18s'
-        print(space % ('Id', 'Name', 'Home', 'Country'))
+        print(space % ('Id', 'Name', 'Position', 'Team'))
         print('=' * 150)
         for i in x:
             for j in i:
                 print('%19s' % j, end=' ')
             print()
         print('=' * 150)
-    except:
-        print("Table doesn't exist.")
 
-def updateTeam():
-    config = connectionData.myConnection()
-    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
-    cursor = conn.cursor()
-    cursor.execute('select * from team')
-    x = cursor.fetchall()
-    ans = int(input("Enter the team id whose details to be changed: "))
-
-def getAllPlayers():
-    config = connectionData.myConnection()
-    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
-    cursor = conn.cursor()
-    userInput=int(input("Enter team id: "))
-    cursor.execute('select * from player where teamId=%s',userInput)
-    x = cursor.fetchall()
-    space = '%18s %18s %18s %18s'
-    print(space % ('Id', 'Name', 'Position', 'Team'))
-    print('=' * 150)
-    for i in x:
-        for j in i:
-            print('%19s' % j, end=' ')
-        print()
-    print('=' * 150)
-
-def getTeamMatches():
-    config = connectionData.myConnection()
-    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
-    cursor = conn.cursor()
-    userInput=int(input("Enter team id: "))
-    cursor.execute('select * from game where team1Id=%s or team2Id=%s',(userInput,userInput))
-    x = cursor.fetchall()
-    space = '%18s %18s %18s %18s %18s %18s'
-    print(space % ('Id', 'Location', 'Team 1 Id', 'Team 2 Id', 'Score', 'Competition Id'))
-    print('=' * 150)
-    for i in x:
-        for j in i:
-            print('%19s' % j, end=' ')
-        print()
-    print('=' * 150)
+    def getTeamMatches(self):
+        config = connectionData.myConnection()
+        conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+        cursor = conn.cursor()
+        userInput=int(input("Enter team id: "))
+        cursor.execute('select * from game where team1Id=%s or team2Id=%s',(userInput,userInput))
+        x = cursor.fetchall()
+        space = '%18s %18s %18s %18s %18s %18s'
+        print(space % ('Id', 'Location', 'Team 1 Id', 'Team 2 Id', 'Score', 'Competition Id'))
+        print('=' * 150)
+        for i in x:
+            for j in i:
+                print('%19s' % j, end=' ')
+            print()
+        print('=' * 150)

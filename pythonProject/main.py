@@ -1,7 +1,8 @@
-from classes.teamClass import check_team_id, get_team_by_id, deleteTeam, addTeam, get_team_by_id, getAllTeams, getAllPlayers, getTeamMatches
+from classes.teamClass import check_team_id, get_team_by_id, get_team_by_id
 from classes.playerClass import check_player_id,get_player_by_id,Player
 from classes.competitionClass import check_competition_id,get_competition_by_id, Competition
 from classes.matchClass import check_match_id,get_match_by_id, Match
+from pythonProject.classes.teamClass import Team
 
 
 #Menu functions
@@ -46,22 +47,36 @@ def teamMenu():
         print()
 
         if (ch == "1"):
-            addTeam()
-            #print("x")
+            team_id = int(input("Enter team id: "))
+            name = input("Enter team name: ")
+            home = input("Enter team home: ")
+            country = input("Enter team country: ")
+            newTeam = Team(team_id, name, home, country)
+            newTeam.addTeam()
+
         elif (ch == "2"):
-            print("x")
+            teamId = input("Please enter id of team you want to update: ")
+
+            currMatch = get_team_by_id(teamId)
+            currMatch.printTeamDetails()
+
+            name = input("Please enter team name: ")
+            home = input("Please enter team home: ")
+            country = input("Please enter team country: ")
+            updateTeam = Team(teamId,name, home, country)
+            updateTeam.updateTeam()
+
         elif (ch == "3"):
             team_id = int(input("Enter team id: "))
-            get_team_by_id(team_id)
+            print(get_team_by_id(team_id))
         elif (ch == "4"):
-            getAllTeams()
+            Team.getAllTeams(self=None)
         elif (ch == "5"):
-            getAllPlayers()
+            Team.getAllPlayers(self=None)
         elif (ch =='6'):
-            getTeamMatches()
-            break
+            Team.getTeamMatches(self=None)
         elif (ch == '7'):
-            deleteTeam()
+            Team.deleteTeam(self=None)
         elif (ch == "9"):
             print("Returning to Main")
         else:
