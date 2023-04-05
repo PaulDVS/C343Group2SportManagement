@@ -108,7 +108,12 @@ def getAllTeams():
         print("Table doesn't exist.")
 
 def updateTeam():
-    pass
+    config = connectionData.myConnection()
+    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+    cursor = conn.cursor()
+    cursor.execute('select * from team')
+    x = cursor.fetchall()
+    ans = int(input("Enter the team id whose details to be changed: "))
 
 def getAllPlayers():
     config = connectionData.myConnection()
@@ -126,3 +131,19 @@ def getAllPlayers():
         print()
     print('=' * 150)
 
+def getTeamMatches():
+    config = connectionData.myConnection()
+    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+    cursor = conn.cursor()
+    userInput=int(input("Enter team id: "))
+    cursor.execute('select * from game where team1Id=%s or team2Id=%s',(userInput,userInput))
+    cursor.execute('select * from game where team2Id=%s', userInput)
+    x = cursor.fetchall()
+    space = '%18s %18s %18s %18s %18s %18s'
+    print(space % ('Id', 'Location', 'Team 1 Id', 'Team 2 Id', 'Score', 'Competition Id'))
+    print('=' * 150)
+    for i in x:
+        for j in i:
+            print('%19s' % j, end=' ')
+        print()
+    print('=' * 150)

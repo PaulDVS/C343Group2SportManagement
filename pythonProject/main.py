@@ -1,5 +1,6 @@
-from classes.teamClass import deleteTeam, addTeam, get_team_by_id, getAllTeams
-from classes.matchClass import check_match_id, get_match_by_id, Match
+from classes.teamClass import deleteTeam, addTeam, get_team_by_id, getAllTeams, getAllPlayers, getTeamMatches
+from classes.matchClass import check_match_id,get_match_by_id, Match
+
 
 #Menu functions
 def compMenu():
@@ -55,7 +56,9 @@ def teamMenu():
         elif (ch == "5"):
             getAllPlayers()
         elif (ch =='6'):
-            deleteTeam()
+            #printTeamMatches()
+            getTeamMatches()
+            break
         elif (ch == '7'):
             deleteTeam()
         elif (ch == "9"):

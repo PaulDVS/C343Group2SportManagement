@@ -87,6 +87,7 @@ VALUES
 	(4,'Real Madrid','Santiago Bernabéu','Spain'),
     (5,'Bayern Munich','Allianz Arena','Germany');
     
+
 INSERT INTO pPosition(positionId, positionName)
 VALUES
 	(0,'Bench'),
@@ -94,6 +95,15 @@ VALUES
     (2,'Forward'),
 	(3,'Mid-Field'),
 	(4,'Defence');
+
+
+
+INSERT INTO competition(competitionId, competitionName, parentCompetitionId, competitionBody, sport, compLevel)
+VALUES
+	(1,"Championss League",0,"UEFA","Football","InterNational"),
+	(2,"Vanarama National League",1,"The Football Association","Football","National"),
+	(3,"Bundesliga National League",1,"German Football Association","Football","National");
+
 
 INSERT INTO player(playerId,playerName,positionId,teamId)
 VALUES
@@ -122,6 +132,15 @@ VALUES
 	(23,"Lucas Thatcher",3,5),
 	(24,"William Thatcher",4,5),
 	(25,"James Thatcher",0,5);
+
+INSERT INTO game(gameId, location, team1Id, team2Id, score, competitionId)
+VALUES
+	(1,"Bayt Stadium",4,5,"01:01",3),
+	(2,"Arsenal Stadium",1,2,"03:05",2),
+	(3,"Manchester Stadium",2,3,"02:00",2),
+	(4,"Arsenal Stadium",1,5,"05:01",1),
+	(5,"Madrid Stadium",3,4,"04:03",1);
+
 
 
 
