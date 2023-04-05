@@ -1,12 +1,12 @@
-import pymysql
-from pymysql import Error
+import mysql.connector
+from mysql.connector import Error
 
-from pythonProject.classes import connectionData
+from classes import connectionData
 
 
 def check_match_id(match_id):
     try:
-        connection = pymysql.connector.connect(**connectionData.myConnection())
+        connection = mysql.connector.connect(**connectionData.myConnection())
 
         mysql_Query = """
             Select *
@@ -27,7 +27,7 @@ def check_match_id(match_id):
 
 def get_match_by_id(match_id):
     try:
-        connection = pymysql.connector.connect(**connectionData.myConnection())
+        connection = mysql.connector.connect(**connectionData.myConnection())
 
         mysql_Query = """
             Select *
