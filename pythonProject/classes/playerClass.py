@@ -1,5 +1,7 @@
 import pymysql
 
+from pythonProject.classes import connectionData
+
 
 def check_player_id(match_id):
     pass
@@ -19,7 +21,6 @@ class Player:
 
     def addPlayer(self):
         pass
-
     def deletePlayer(self):
         pass
 
