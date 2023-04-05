@@ -6,15 +6,12 @@ USE sportManagementSystem;
 CREATE TABLE competition (
     competitionId INT AUTO_INCREMENT,
     competitionName VARCHAR(50) NOT NULL,
-    parentCompetitionId INT,
+    parentCompetitionId VARCHAR(50),
     competitionBody VARCHAR(50),
     sport VARCHAR(50),
     compLevel VARCHAR(50),
     CONSTRAINT pk_competition 
-        PRIMARY KEY (competitionId),
-    CONSTRAINT fk_parent 
-        FOREIGN KEY (parentCompetitionId)
-	REFERENCES competition(competitionId)
+        PRIMARY KEY (competitionId)
 );
 CREATE TABLE team (
     teamId INT AUTO_INCREMENT,
@@ -78,4 +75,18 @@ CREATE TABLE teamCompetition (
     	FOREIGN KEY (teamId)
     	REFERENCES team(teamId)
 );
+INSERT INTO 
+	team(teamId, teamName, teamHome, teamCountry)
+VALUES
+	(1,'Arsenal','Emirates','England'),
+	(2,'Manchester City','Etihad','England'),
+    (3,'Manchester United','Old Trafford','England'),
+	(4,'Real Madrid','Santiago Bernabéu','Spain'),
+    (5,'Bayern Munich','Allianz Arena','Germany');
+    
+
+            
+            
+
+
 
