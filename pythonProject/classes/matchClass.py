@@ -2,7 +2,8 @@ import pymysql
 from pymysql import Error
 
 from classes import connectionData
-
+from classes.teamClass import get_team_by_id, Team
+from classes.competitionClass import get_competition_by_id, Competition
 
 def check_match_id(match_id):
     try:
@@ -61,7 +62,7 @@ class Match:
 
             mysql_Query = """
                 INSERT INTO game(location, team1Id, team2Id, score, competitionId) VALUES
-                (%s, %s, %s)"""
+                (%s, %s, %s, %s, %s)"""
 
             cursor = connection.cursor()
             cursor.execute(mysql_Query, (self.location, self.team1_id, self.team2_id, self.match_score, self.competition_id))
@@ -90,12 +91,17 @@ class Match:
         print("Match id: ",self.match_id)
         print("Score:",self.match_score)
         print("Team 1:", end=" ")
-        #Get print team 1 name
+        team1 = get_team_by_id(self.team1_id)
+        team1.printBasic()
+
         print("Team 2:", end=" ")
-        # Get print team 2 name
+        team2 = get_team_by_id(self.team2_id)
+        team2.printBasic()
+
         print("At "+ self.location)
         print("Competition:", end=" ")
-        # Get competition name
+        comp = get_competition_by_id(self.competition_id)
+        comp.printBasic()
 
 
 
