@@ -15,3 +15,18 @@ class Competition:
 
     def __str__(self):
         return super().__str__()
+
+    def addCompetition(self):
+        pass
+
+    def deleteCompetition(self):
+        pass
+
+    def getCompetitionById(self):
+        pass
+
+    def getAllCompetitions(self):
+        pass
+
+    def updateCompetition(self):
+        pass
