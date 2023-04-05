@@ -1,3 +1,5 @@
+
+import pymysql
 def check_team_id(match_id):
     pass
 
@@ -16,7 +18,12 @@ class Team:
         return super().__str__()
 
     def addTeam(self):
-        pass
+        id = int(input("Enter team id: "))
+
+
+        conn = pymysql.connect(host="localhost", user="root", password="", database="sportManagementSystem")
+        cursor = conn.cursor()
+        cursor.execute()
 
     def deleteTeam(self):
         pass
