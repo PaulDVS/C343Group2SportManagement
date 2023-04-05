@@ -31,7 +31,25 @@ class Team:
         conn.commit()
 
     def deleteTeam(self):
-        pass
+        try:
+            conn = pymysql.connect(host="localhost", user="root", password="SaDa2903!", database="sportManagementSystem")
+            cursor = conn.cursor()
+            cursor.execute('select * from team')
+            x = cursor.fetchall()
+            ans = int(input('Enter the team to be deleted:'))
+            for i in x:
+                i = list(i)
+                if i[0] == ans:
+                    cmd = 'delete from team where teamId=%s'
+                    val = (i[0],)
+                    cursor.execute(cmd, val)
+                    conn.commit()
+                    print('Team deleted.')
+                    break
+            else:
+                print('Record not found.')
+        except:
+            print("Table doesn't exist.")
 
     def getTeamById(self):
         pass
