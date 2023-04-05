@@ -14,3 +14,19 @@ class Player:
     def __str__(self):
         return super().__str__()
 
+    def addPlayer(self):
+        pass
+
+    def deletePlayer(self):
+        pass
+
+    def getPlayerById(self):
+        pass
+
+    def getAllPlayers(self):
+        pass
+
+    def updatePlayer(self):
+        pass
+
+
