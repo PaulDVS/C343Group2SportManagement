@@ -1,12 +1,14 @@
 import pymysql
 from pymysql import Error
 
-from pythonProject.classes import connectionData
+from classes import connectionData
 
+from classes.teamClass import get_team_by_id, Team
+from classes.competitionClass import get_competition_by_id, Competition
 
 def check_match_id(match_id):
     try:
-        connection = pymysql.connector.connect(**connectionData.myConnection())
+        connection = pymysql.connect(**connectionData.myConnection())
 
         mysql_Query = """
             Select *
@@ -27,7 +29,7 @@ def check_match_id(match_id):
 
 def get_match_by_id(match_id):
     try:
-        connection = pymysql.connector.connect(**connectionData.myConnection())
+        connection = pymysql.connect(**connectionData.myConnection())
 
         mysql_Query = """
             Select *
@@ -57,11 +59,11 @@ class Match:
 
     def addMatch(self):
         try:
-            connection = pymysql.connector.connect(**connectionData.myConnection())
+            connection = pymysql.connect(**connectionData.myConnection())
 
             mysql_Query = """
                 INSERT INTO game(location, team1Id, team2Id, score, competitionId) VALUES
-                (%s, %s, %s)"""
+                (%s, %s, %s, %s, %s)"""
 
             cursor = connection.cursor()
             cursor.execute(mysql_Query, (self.location, self.team1_id, self.team2_id, self.match_score, self.competition_id))
@@ -72,7 +74,7 @@ class Match:
 
     def updateMatch(self):
         try:
-            connection = mysql.connector.connect(**connectionData.myConnection())
+            connection = pymysql.connect(**connectionData.myConnection())
 
             mysql_Query = """
                 UPDATE game
@@ -90,12 +92,18 @@ class Match:
         print("Match id: ",self.match_id)
         print("Score:",self.match_score)
         print("Team 1:", end=" ")
-        #Get print team 1 name
+
+        team1 = get_team_by_id(self.team1_id)
+        team1.printBasic()
+
         print("Team 2:", end=" ")
-        # Get print team 2 name
+        team2 = get_team_by_id(self.team2_id)
+        team2.printBasic()
+
         print("At "+ self.location)
         print("Competition:", end=" ")
-        # Get competition name
+        comp = get_competition_by_id(self.competition_id)
+        comp.printBasic()
 
 
 
