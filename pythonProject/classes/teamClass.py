@@ -32,7 +32,8 @@ def get_team_by_id(team_id):
         result = my_cursor.fetchall()[0]
 
         # first index is id second is name ...etc
-        print ("Id:",result[0], " Team Name:", result[1], " Team Home:",result[2], " Team Country:",result[3])
+        #print ("Id:",result[0], " Team Name:", result[1], " Team Home:",result[2], " Team Country:",result[3])
+        return(Team(result[0],result[1],result[2],result[3]))
     except:
         print("Record not found!")
 
@@ -103,8 +104,9 @@ def getAllTeams():
     except:
         print("Table doesn't exist.")
 
-    def updateTeam(self):
-        pass
+def updateTeam():
+    pass
 
-
+def getAllPlayers():
+    pass
 
