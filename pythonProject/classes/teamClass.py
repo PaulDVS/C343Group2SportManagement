@@ -18,12 +18,17 @@ class Team:
         return super().__str__()
 
     def addTeam(self):
-        id = int(input("Enter team id: "))
-
-
         conn = pymysql.connect(host="localhost", user="root", password="", database="sportManagementSystem")
         cursor = conn.cursor()
-        cursor.execute()
+
+        id = int(input("Enter team id: "))
+        name = input("Enter team name: ")
+        home = input("Enter team home: ")
+        country = input("Enter team country: ")
+        cmd = 'insert into team values(%s,%s,%s,%s)'
+        rec = [id, name, home, country]
+        cursor.execute(cmd,rec)
+        conn.commit()
 
     def deleteTeam(self):
         pass
