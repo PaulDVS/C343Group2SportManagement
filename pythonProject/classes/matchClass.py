@@ -14,6 +14,24 @@ class Match:
     def __str__(self):
         return super().__str__()
 
+    def addMatch(self):
+        pass
+
+    def deleteMatch(self):
+        pass
+
+    def getMatchById(self):
+        pass
+
+    def getAllMatches(self):
+        pass
+
+    def updateMatch(self):
+        pass
+
+
+
+
 
 
 
