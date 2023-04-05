@@ -1,7 +1,19 @@
-
 import pymysql
-def check_team_id(match_id):
-    pass
+import connectionData
+
+def check_team_id(team_id):
+    config = connectionData.aadil_connection()
+    my_db = pymysql.connect(host=config['host'],user=config['user'],passwd=config['password'],database=config['database'])
+
+    my_cursor = my_db.cursor()
+    sql = f"SELECT * FROM team WHERE teamId = {team_id}"
+    my_cursor.execute(sql)
+
+    result = my_cursor.fetchall()
+
+    if len(result) == 0:
+        return False
+    return True
 
 
 def get_team_by_id(match_id):
@@ -18,6 +30,8 @@ class Team:
         return super().__str__()
 
     def addTeam(self):
+        id = int(input("Enter team id: "))
+
         conn = pymysql.connect(host="localhost", user="root", password="", database="sportManagementSystem")
         cursor = conn.cursor()
 
@@ -41,8 +55,5 @@ class Team:
 
     def updateTeam(self):
         pass
-
-
-
 
 
