@@ -1,0 +1,8 @@
+Sport management system 
+  created by
+  Paul van Sittert
+  Aadil Sohail
+  Doha Fekouss
+  
+Makes use of a Python console program to manage Sport competitions, creating competitions and sub competitions, teams, matches and players.
+Makes use of mysql database to hold information.
