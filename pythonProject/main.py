@@ -58,7 +58,6 @@ def teamMenu():
         elif (ch == "5"):
             getAllPlayers()
         elif (ch =='6'):
-            #printTeamMatches()
             getTeamMatches()
             break
         elif (ch == '7'):

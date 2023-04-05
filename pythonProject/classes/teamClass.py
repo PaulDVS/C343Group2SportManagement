@@ -51,6 +51,9 @@ class Team:
     def __str__(self):
         return super().__str__()
 
+    def basicPrint(self):
+        print(self.id,self.name)
+
 def addTeam():
     config = connectionData.myConnection()
     conn = pymysql.connect(host=config['host'],user=config['user'],passwd=config['password'],database=config['database'])
