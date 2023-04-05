@@ -15,6 +15,21 @@ class Team:
     def __str__(self):
         return super().__str__()
 
+    def addTeam(self):
+        pass
+
+    def deleteTeam(self):
+        pass
+
+    def getTeamById(self):
+        pass
+
+    def getAllTeams(self):
+        pass
+
+    def updateTeam(self):
+        pass
+
 
 
 
