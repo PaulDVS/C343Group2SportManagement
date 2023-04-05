@@ -20,18 +20,21 @@ def check_team_id(team_id):
 
 
 def get_team_by_id(team_id):
-    config = connectionData.myConnection()
-    my_db = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+    try:
+        config = connectionData.myConnection()
+        my_db = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
 
-    my_cursor = my_db.cursor()
-    sql = f"SELECT * FROM team WHERE teamId = {team_id}"
-    my_cursor.execute(sql)
+        my_cursor = my_db.cursor()
+        sql = f"SELECT * FROM team WHERE teamId = {team_id}"
+        my_cursor.execute(sql)
 
-    # result is just one team as ids are unique hence select the first result([0])
-    result = my_cursor.fetchall()[0]
+        # result is just one team as ids are unique hence select the first result([0])
+        result = my_cursor.fetchall()[0]
 
-    # first index is id second is name ...etc
-    print(Team(result[0], result[1], result[2], result[3]))
+        # first index is id second is name ...etc
+        print ("Id:",result[0], " Team Name:", result[1], " Team Home:",result[2], " Team Country:",result[3])
+    except:
+        print("Record doesn't exist")
 
 
 class Team:
