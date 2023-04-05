@@ -11,6 +11,7 @@ def myConnection(): #Paul's connection info
         'raise_on_warnings': True,
         'auto-commit':True,
     }
+    return connection_Config_Dict
 
 
 def aadil_connection():
