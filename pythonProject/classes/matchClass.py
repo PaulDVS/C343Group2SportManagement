@@ -43,8 +43,11 @@ def get_match_by_id(match_id):
         print("Error with SQL", e)
 
 class Match:
-    def __init__(self,match_id,location,match_score):
+    def __init__(self,match_id,team1_id,team2_id,competition_id,location,match_score):
         self.match_id = match_id
+        self.team1_id = team1_id
+        self.team2_id = team2_id
+        self.competition_id = competition_id
         self.location = location
         self.match_score = match_score
 
@@ -52,7 +55,19 @@ class Match:
         return super().__str__()
 
     def addMatch(self):
-        pass
+        try:
+            connection = mysql.connector.connect(**connectionData.myConnection())
+
+            mysql_Query = """
+                INSERT INTO GAME(location, team1Id, team2Id, score, competitionId) VALUES
+                (%s, %s, %s)"""
+
+            cursor = connection.cursor()
+            cursor.execute(mysql_Query, (self.location, self.team1_id, self.team2_id, self.match_score, self.competition_id))
+
+
+        except Error as e:
+            print("Error with SQL", e)
 
     def updateMatch(self):
         pass

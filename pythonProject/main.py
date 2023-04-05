@@ -1,5 +1,5 @@
 from classes.teamClass import deleteTeam, addTeam, get_team_by_id, getAllTeams
-from classes.matchClass import check_match_id
+from classes.matchClass import check_match_id, Match
 
 #Menu functions
 def compMenu():
@@ -75,7 +75,27 @@ def matchMenu():
         print()
 
         if (ch == "1"):
-            check_match_id(1)
+            print("Please enter the id of team 1:")
+            id_1 = input()
+            #check if id exists
+
+            print("Please enter the id of team 2:")
+            id_2 = input()
+            # check if id exists
+
+            print("Please enter the id of competition:")
+            id_comp = input()
+            # check if id exists
+
+            print("Please enter location of the match:")
+            location = input()
+
+            print("Please enter the score in the format 00:00")
+            match_score = input()
+
+            newMatch = Match(0, id_1, id_2, id_comp, location, match_score)
+            newMatch.addMatch()
+
         elif (ch == "2"):
             print("x")
         elif (ch == "3"):
