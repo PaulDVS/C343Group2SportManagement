@@ -1,6 +1,6 @@
 import pymysql
 
-from pythonProject.classes import connectionData
+from classes import connectionData
 #import connectionData
 
 def check_team_id(team_id):

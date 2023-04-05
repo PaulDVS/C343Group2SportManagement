@@ -1,5 +1,5 @@
 from classes.teamClass import deleteTeam, addTeam, get_team_by_id, getAllTeams
-
+from classes.matchClass import check_match_id
 
 #Menu functions
 def compMenu():
@@ -75,7 +75,7 @@ def matchMenu():
         print()
 
         if (ch == "1"):
-            print("x")
+            check_match_id(1)
         elif (ch == "2"):
             print("x")
         elif (ch == "3"):
