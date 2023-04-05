@@ -34,7 +34,7 @@ def get_team_by_id(team_id):
         # first index is id second is name ...etc
         print ("Id:",result[0], " Team Name:", result[1], " Team Home:",result[2], " Team Country:",result[3])
     except:
-        print("Record doesn't exist")
+        print("Record not found!")
 
 
 class Team:
@@ -85,8 +85,23 @@ def deleteTeam():
         print("Table doesn't exist.")
 
 
-    def getAllTeams(self):
-        pass
+def getAllTeams():
+    try:
+        config = connectionData.myConnection()
+        conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+        cursor = conn.cursor()
+        cursor.execute('select * from team order by teamId')
+        x = cursor.fetchall()
+        space = '%18s %18s %18s %18s'
+        print(space % ('Id', 'Name', 'Home', 'Country'))
+        print('=' * 150)
+        for i in x:
+            for j in i:
+                print('%19s' % j, end=' ')
+            print()
+        print('=' * 150)
+    except:
+        print("Table doesn't exist.")
 
     def updateTeam(self):
         pass
