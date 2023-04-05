@@ -108,7 +108,49 @@ def getAllTeams():
         print("Table doesn't exist.")
 
 def updateTeam():
-    pass
+    config = connectionData.myConnection()
+    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+    cursor = conn.cursor()
+    cursor.execute('select * from team')
+    x = cursor.fetchall()
+    ans = int(input("Enter the team id whose details to be changed: "))
+    for i in x:
+        i = list(i)
+        if i[0] == ans:
+            userInput = input('Change Mobile?(Y/N):')
+            if userInput == 'Y' or userInput == 'y':
+                i[2] = int(input('Enter Mobile:'))
+
+            userInput = input('Change Email?(Y/N):')
+            if userInput == 'Y' or userInput == 'y':
+                i[3] = input('Enter Email:')
+                i[3] = i[3].lower()
+
+            userInput = input('Change Address?(Y/N):')
+            if userInput == 'Y' or userInput == 'y':
+                i[4] = input('Enter Address:')
+                i[4] = i[4].upper()
+
+            userInput = input('Change City?(Y/N):')
+            if userInput == 'Y' or userInput == 'y':
+                i[5] = input('Enter City:')
+                i[5] = i[5].upper()
+
+            userInput = input('Change Country?(Y/N):')
+            if userInput == 'Y' or userInput == 'y':
+                i[6] = input('Enter Country:')
+                i[6] = i[6].upper()
+
+            userInput = input('Change Balance?(Y/N):')
+            if userInput == 'Y' or userInput == 'y':
+                i[7] = float(input('Enter Balance:'))
+
+            cmd = 'update Bank set Name=%s, Mobile=%s, Email=%s, Address=%s, City=%s, Country=%s, Balance=%s where Acc_No=%s'
+            val = (i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[0])
+            cursor.execute(cmd, val)
+            conn.commit()
+            print('Account updated.')
+            break
 
 def getAllPlayers():
     config = connectionData.myConnection()
@@ -126,3 +168,19 @@ def getAllPlayers():
         print()
     print('=' * 150)
 
+def getTeamMatches():
+    config = connectionData.myConnection()
+    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+    cursor = conn.cursor()
+    userInput=int(input("Enter team id: "))
+    cursor.execute('select * from game where team1Id=%s or team2Id=%s',(userInput,userInput))
+    cursor.execute('select * from game where team2Id=%s', userInput)
+    x = cursor.fetchall()
+    space = '%18s %18s %18s %18s %18s %18s'
+    print(space % ('Id', 'Location', 'Team 1 Id', 'Team 2 Id', 'Score', 'Competition Id'))
+    print('=' * 150)
+    for i in x:
+        for j in i:
+            print('%19s' % j, end=' ')
+        print()
+    print('=' * 150)

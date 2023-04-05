@@ -1,12 +1,12 @@
-import mysql.connector
-from mysql.connector import Error
+import pymysql
+from pymysql import Error
 
-from classes import connectionData
+from pythonProject.classes import connectionData
 
 
 def check_match_id(match_id):
     try:
-        connection = mysql.connector.connect(**connectionData.myConnection())
+        connection = pymysql.connector.connect(**connectionData.myConnection())
 
         mysql_Query = """
             Select *
@@ -27,7 +27,7 @@ def check_match_id(match_id):
 
 def get_match_by_id(match_id):
     try:
-        connection = mysql.connector.connect(**connectionData.myConnection())
+        connection = pymysql.connector.connect(**connectionData.myConnection())
 
         mysql_Query = """
             Select *
@@ -57,7 +57,7 @@ class Match:
 
     def addMatch(self):
         try:
-            connection = mysql.connector.connect(**connectionData.myConnection())
+            connection = pymysql.connector.connect(**connectionData.myConnection())
 
             mysql_Query = """
                 INSERT INTO game(location, team1Id, team2Id, score, competitionId) VALUES
