@@ -6,12 +6,15 @@ USE sportManagementSystem;
 CREATE TABLE competition (
     competitionId INT AUTO_INCREMENT,
     competitionName VARCHAR(50) NOT NULL,
-    parentCompetitionId VARCHAR(50),
+    parentCompetitionId INT,
     competitionBody VARCHAR(50),
     sport VARCHAR(50),
     compLevel VARCHAR(50),
     CONSTRAINT pk_competition 
-        PRIMARY KEY (competitionId)
+        PRIMARY KEY (competitionId),
+    CONSTRAINT fk_parent 
+        FOREIGN KEY (parentCompetitionId)
+	REFERENCES competition(competitionId)
 );
 CREATE TABLE team (
     teamId INT AUTO_INCREMENT,
