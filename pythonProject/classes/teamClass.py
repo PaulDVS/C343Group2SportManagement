@@ -2,7 +2,8 @@ import pymysql
 import connectionData
 
 def check_team_id(team_id):
-    config = connectionData.aadil_connection()
+    #config = connectionData.aadil_connection()
+    config = connectionData.myConnection()
     my_db = pymysql.connect(host=config['host'],user=config['user'],passwd=config['password'],database=config['database'])
 
     my_cursor = my_db.cursor()
@@ -17,7 +18,7 @@ def check_team_id(team_id):
 
 
 def get_team_by_id(team_id):
-    config = connectionData.aadil_connection()
+    config = connectionData.myConnection()
     my_db = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
 
     my_cursor = my_db.cursor()
@@ -41,42 +42,42 @@ class Team:
     def __str__(self):
         return super().__str__()
 
-    def addTeam(self):
-        id = int(input("Enter team id: "))
+def addTeam():
+    config = connectionData.myConnection()
+    conn = pymysql.connect(host=config['host'],user=config['user'],passwd=config['password'],database=config['database'])
+    cursor = conn.cursor()
 
-        conn = pymysql.connect(host="localhost", user="root", password="", database="sportManagementSystem")
+    id = int(input("Enter team id: "))
+    name = input("Enter team name: ")
+    home = input("Enter team home: ")
+    country = input("Enter team country: ")
+    cmd = 'insert into team values(%s,%s,%s,%s)'
+    rec = [id, name, home, country]
+    cursor.execute(cmd,rec)
+    conn.commit()
+
+def deleteTeam():
+    try:
+        config = connectionData.myConnection()
+        conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
         cursor = conn.cursor()
 
-        id = int(input("Enter team id: "))
-        name = input("Enter team name: ")
-        home = input("Enter team home: ")
-        country = input("Enter team country: ")
-        cmd = 'insert into team values(%s,%s,%s,%s)'
-        rec = [id, name, home, country]
-        cursor.execute(cmd,rec)
-        conn.commit()
-
-    def deleteTeam(self):
-        try:
-            conn = pymysql.connect(host="localhost", user="root", password="", database="sportManagementSystem")
-            cursor = conn.cursor()
-
-            cursor.execute('select * from team')
-            x = cursor.fetchall()
-            ans = int(input('Enter the team id to be deleted:'))
-            for i in x:
-                i = list(i)
-                if i[0] == ans:
-                    cmd = 'delete from team where teamId=%s'
-                    val = (i[0],)
-                    cursor.execute(cmd, val)
-                    conn.commit()
-                    print('Team deleted.')
-                    break
+        cursor.execute('select * from team')
+        x = cursor.fetchall()
+        ans = int(input('Enter the team id to be deleted:'))
+        for i in x:
+            i = list(i)
+            if i[0] == ans:
+                cmd = 'delete from team where teamId=%s'
+                val = (i[0],)
+                cursor.execute(cmd, val)
+                conn.commit()
+                print('Team deleted.')
+                break
             else:
                 print('Record not found.')
-        except:
-            print("Table doesn't exist.")
+    except:
+        print("Table doesn't exist.")
 
 
     def getAllTeams(self):
