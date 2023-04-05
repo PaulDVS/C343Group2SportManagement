@@ -1,6 +1,9 @@
 import pymysql
 
-from classes import connectionData
+from pythonProject.classes import connectionData
+
+
+#from classes import connectionData
 #import connectionData
 
 def check_team_id(team_id):
@@ -108,5 +111,18 @@ def updateTeam():
     pass
 
 def getAllPlayers():
-    pass
+    config = connectionData.myConnection()
+    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+    cursor = conn.cursor()
+    userInput=int(input("Enter team id: "))
+    cursor.execute('select * from player where teamId=%s',userInput)
+    x = cursor.fetchall()
+    space = '%18s %18s %18s %18s'
+    print(space % ('Id', 'Name', 'Position', 'Team'))
+    print('=' * 150)
+    for i in x:
+        for j in i:
+            print('%19s' % j, end=' ')
+        print()
+    print('=' * 150)
 

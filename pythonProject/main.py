@@ -36,7 +36,7 @@ def teamMenu():
     while (ch != "9"):
         print("Team Menu: ")
         print("1: Create Team, 2: Update Team, 3: Print Team Details, 4: Print All Teams")
-        print("4: Print Team Players, 5: Print Team Matches, 6: Delete Team")
+        print("5: Print Team Players, 6: Print Team Matches, 7: Delete Team")
         print("9: End")
         print("Please enter your choice: ")
         ch = input()
@@ -52,11 +52,12 @@ def teamMenu():
             get_team_by_id(team_id)
         elif (ch == "4"):
             getAllTeams()
-        elif (ch == "6"):
-            print("x")
+        elif (ch == "5"):
+            getAllPlayers()
         elif (ch =='6'):
             deleteTeam()
-            #print("x")
+        elif (ch == '7'):
+            deleteTeam()
         elif (ch == "9"):
             print("Returning to Main")
         else:
