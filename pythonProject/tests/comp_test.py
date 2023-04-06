@@ -25,7 +25,7 @@ def test_update():
     testComp.addCompetition()
 
     updateComp = competitionClass.Competition(5, "My Comp", -1, "Some company", "Rugby", "Local")
-    testComp.updateCompetition()
+    updateComp.updateCompetition()
 
     check = competitionClass.get_competition_by_id(5)
     assert check.sport =="Rugby"
