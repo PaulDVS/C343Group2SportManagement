@@ -1,4 +1,4 @@
-from classes.teamClass import check_team_id, get_team_by_id, get_team_by_id
+from classes.teamClass import check_team_id, get_team_by_id
 from classes.playerClass import check_player_id,get_player_by_id,Player
 from classes import competitionClass
 from classes import matchClass
@@ -287,7 +287,7 @@ def playerMenu():
             teamID = int(input("Enter a valid TeamID:\n"))
             while not get_team_by_id(teamID):
                 print("Invalid Team ID - Below you will find all the valids teams:")
-                getAllTeams()
+                Team.getAllTeams(self=None)
                 teamID = int(input("Enter a valid TeamID:\n"))
 
             player = Player(name, positionID, teamID)
@@ -316,7 +316,7 @@ def playerMenu():
             teamID = int(input("Enter a valid TeamID:\n"))
             while not get_team_by_id(teamID):
                 print("Invalid Team ID - Below you will find all the valid teams:")
-                getAllTeams()
+                Team.getAllTeams(self=None)
                 teamID = int(input("Enter a valid TeamID:\n"))
 
             player = Player(name, positionID, teamID, player_id)
