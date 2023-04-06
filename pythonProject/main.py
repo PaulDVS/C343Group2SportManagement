@@ -1,7 +1,9 @@
-from classes.teamClass import check_team_id, get_team_by_id, deleteTeam, addTeam, get_team_by_id, getAllTeams, getAllPlayers, getTeamMatches
+from classes.teamClass import check_team_id, get_team_by_id, get_team_by_id
 from classes.playerClass import check_player_id,get_player_by_id,Player
 from classes import competitionClass
 from classes import matchClass
+from classes.teamClass import Team
+
 
 
 #Menu functions
@@ -116,22 +118,54 @@ def teamMenu():
         print()
 
         if (ch == "1"):
-            addTeam()
-            #print("x")
-        elif (ch == "2"):
-            print("x")
-        elif (ch == "3"):
             team_id = int(input("Enter team id: "))
-            get_team_by_id(team_id)
+            name = input("Enter team name: ")
+            home = input("Enter team home: ")
+            country = input("Enter team country: ")
+            newTeam = Team(team_id, name, home, country)
+            newTeam.addTeam()
+
+        elif (ch == "2"):
+            try:
+                teamId = input("Please enter id of team you want to update: ")
+                if not (check_team_id(teamId)):
+                    print("Record doesn't exist!")
+                    continue
+
+                get_team_by_id(teamId)
+
+                name = input("Please enter team name: ")
+                home = input("Please enter team home: ")
+                country = input("Please enter team country: ")
+                updateTeam = Team(teamId, name, home, country)
+                updateTeam.updateTeam()
+            except:
+                print("Invalid Input!")
+
+        elif (ch == "3"):
+            try:
+                team_id = int(input("Enter team id: "))
+                print("Team Id: ",get_team_by_id(team_id).team_id,"  Team Name: ",get_team_by_id(team_id).name,
+                      "  Team Home: ",get_team_by_id(team_id).home, "  Team Country: ", get_team_by_id(team_id).country)
+            except:
+                print("No such record!")
+
         elif (ch == "4"):
-            getAllTeams()
+            Team.getAllTeams(self=None)
         elif (ch == "5"):
-            getAllPlayers()
+            Team.getAllPlayers(self=None)
         elif (ch =='6'):
-            getTeamMatches()
-            break
+            Team.getTeamMatches(self=None)
         elif (ch == '7'):
-            deleteTeam()
+            try:
+                ans = int(input('Enter the team id to be deleted:'))
+                if check_team_id(ans)==True:
+                    get_team_by_id(ans).deleteTeam()
+                    print("Team successfully deleted!")
+                else:
+                    print("No such team in database!")
+            except:
+                print("Error! Please enter a digit for team id!")
         elif (ch == "9"):
             print("Returning to Main")
         else:

@@ -66,7 +66,7 @@ class Player:
             sql = f'INSERT into player(playerName,positionId,teamId) values(%s,%s,%s)'
             values = [self.name, self.position_id, self.team_id]
             cursor.execute(sql, values)
-            conn.commit()
+
         except pymysql.err.OperationalError as e:
             print("Database could not be found please ensure it exists")
             print(e)
@@ -81,7 +81,7 @@ class Player:
             cursor = conn.cursor()
             sql = f"DELETE FROM player WHERE playerId={self.player_id};"
             cursor.execute(sql)
-            conn.commit()
+
         except pymysql.err.OperationalError as e:
             print("Database could not be found please ensure it exists")
             print(e)
@@ -103,7 +103,7 @@ class Player:
             sql = "UPDATE player SET playerName = %s, positionId = %s, teamId = %s  WHERE playerId = %s"
             values = [self.name, self.position_id, self.team_id, self.player_id]
             cursor.execute(sql, values)
-            conn.commit()
+
         except pymysql.err.OperationalError as e:
             print("Database could not be found please ensure it exists")
             print(e)

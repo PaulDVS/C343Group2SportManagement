@@ -78,7 +78,7 @@ CREATE TABLE teamCompetition (
     	FOREIGN KEY (teamId)
     	REFERENCES team(teamId)
 );
-INSERT INTO 
+INSERT INTO
 	team(teamId, teamName, teamHome, teamCountry)
 VALUES
 	(1,'Arsenal','Emirates','England'),

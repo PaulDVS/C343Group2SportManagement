@@ -5,6 +5,7 @@ from . import connectionData
 from . import teamClass
 from . import competitionClass
 
+
 def check_match_id(match_id):
     try:
         connection = pymysql.connect(**connectionData.myConnection())
