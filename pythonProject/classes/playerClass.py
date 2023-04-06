@@ -1,6 +1,6 @@
 import pymysql
 
-from pythonProject.classes import connectionData
+from classes import connectionData
 
 
 #from pythonProject.classes import connectionData
@@ -10,7 +10,7 @@ from pythonProject.classes import connectionData
 def check_player_id(player_id):
     try:
         config = connectionData.myConnection()
-        my_db = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+        my_db = pymysql.connect(**connectionData.myConnection())
 
         my_cursor = my_db.cursor()
         sql = f"SELECT * FROM player WHERE playerId = {player_id}"
@@ -33,7 +33,7 @@ def check_player_id(player_id):
 def get_player_by_id(player_id):
     try:
         config = connectionData.myConnection()
-        my_db = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+        my_db =  pymysql.connect(**connectionData.myConnection())
 
         my_cursor = my_db.cursor()
         sql = f"SELECT * FROM player WHERE playerId = {player_id}"
@@ -49,7 +49,7 @@ def get_player_by_id(player_id):
 
 
 class Player:
-    def __init__(self,player_id,name,position_id,team_id):
+    def __init__(self, name, position_id, team_id, player_id=0):
         self.player_id = player_id
         self.name = name
         self.position_id = position_id
@@ -61,7 +61,7 @@ class Player:
     def addPlayer(self):
         try:
             config = connectionData.myConnection()
-            conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+            conn = pymysql.connect(**connectionData.myConnection())
             cursor = conn.cursor()
             sql = f'INSERT into player(playerName,positionId,teamId) values(%s,%s,%s)'
             values = [self.name, self.position_id, self.team_id]
@@ -77,7 +77,7 @@ class Player:
     def delete_player(self):
         try:
             config = connectionData.myConnection()
-            conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+            conn = pymysql.connect(**connectionData.myConnection())
             cursor = conn.cursor()
             sql = f"DELETE FROM player WHERE playerId={self.player_id};"
             cursor.execute(sql)
@@ -98,7 +98,7 @@ class Player:
     def update_player(self):
         try:
             config = connectionData.myConnection()
-            conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'], database=config['database'])
+            conn = pymysql.connect(**connectionData.myConnection())
             cursor = conn.cursor()
             sql = "UPDATE player SET playerName = %s, positionId = %s, teamId = %s  WHERE playerId = %s"
             values = [self.name, self.position_id, self.team_id, self.player_id]

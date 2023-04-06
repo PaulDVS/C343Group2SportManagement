@@ -1,6 +1,6 @@
 import pymysql
 
-from pythonProject.classes import connectionData
+from classes import connectionData
 
 
 #from classes import connectionData
@@ -9,7 +9,7 @@ from pythonProject.classes import connectionData
 def check_team_id(team_id):
     #config = connectionData.aadil_connection()
     config = connectionData.myConnection()
-    my_db = pymysql.connect(host=config['host'],user=config['user'],passwd=config['password'],database=config['database'])
+    my_db = pymysql.connect(**connectionData.myConnection())
 
     my_cursor = my_db.cursor()
     sql = f"SELECT * FROM team WHERE teamId = {team_id}"
@@ -25,7 +25,7 @@ def check_team_id(team_id):
 def get_team_by_id(team_id):
     try:
         config = connectionData.myConnection()
-        my_db = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+        my_db = pymysql.connect(**connectionData.myConnection())
 
         my_cursor = my_db.cursor()
         sql = f"SELECT * FROM team WHERE teamId = {team_id}"
@@ -52,11 +52,11 @@ class Team:
         return super().__str__()
 
     def basicPrint(self):
-        print(self.id,self.name)
+        print(self.team_id,self.name)
 
 def addTeam():
     config = connectionData.myConnection()
-    conn = pymysql.connect(host=config['host'],user=config['user'],passwd=config['password'],database=config['database'])
+    conn = pymysql.connect(**connectionData.myConnection())
     cursor = conn.cursor()
 
     id = int(input("Enter team id: "))
@@ -71,7 +71,7 @@ def addTeam():
 def deleteTeam():
     try:
         config = connectionData.myConnection()
-        conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+        conn = pymysql.connect(**connectionData.myConnection())
         cursor = conn.cursor()
 
         cursor.execute('select * from team')
@@ -95,7 +95,7 @@ def deleteTeam():
 def getAllTeams():
     try:
         config = connectionData.myConnection()
-        conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+        conn = pymysql.connect(**connectionData.myConnection())
         cursor = conn.cursor()
         cursor.execute('select * from team order by teamId')
         x = cursor.fetchall()
@@ -112,7 +112,7 @@ def getAllTeams():
 
 def updateTeam():
     config = connectionData.myConnection()
-    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+    conn = pymysql.connect(**connectionData.myConnection())
     cursor = conn.cursor()
     cursor.execute('select * from team')
     x = cursor.fetchall()
@@ -120,7 +120,7 @@ def updateTeam():
 
 def getAllPlayers():
     config = connectionData.myConnection()
-    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+    conn = pymysql.connect(**connectionData.myConnection())
     cursor = conn.cursor()
     userInput=int(input("Enter team id: "))
     cursor.execute('select * from player where teamId=%s',userInput)
@@ -136,7 +136,7 @@ def getAllPlayers():
 
 def getTeamMatches():
     config = connectionData.myConnection()
-    conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+    conn = pymysql.connect(**connectionData.myConnection())
     cursor = conn.cursor()
     userInput=int(input("Enter team id: "))
     cursor.execute('select * from game where team1Id=%s or team2Id=%s',(userInput,userInput))

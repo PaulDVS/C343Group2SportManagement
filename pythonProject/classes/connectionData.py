@@ -6,7 +6,7 @@ def myConnection(): #Paul's connection info
         'host' : '127.0.0.1',
         'database' : 'sportmanagementsystem',
         'port': 3351,
-        'raise_on_warnings': True
+        'autocommit' : True
     }
 
     connection_Config_Dict_Aadil = {
@@ -14,7 +14,7 @@ def myConnection(): #Paul's connection info
         'password': 'Aadil123!',
         'host' : 'localhost',
         'database' : 'sportmanagementsystem',
-        'raise_on_warnings': True
+        'autocommit' : True
     }
 
     connection_Config_Dict_Doha = {
@@ -22,31 +22,10 @@ def myConnection(): #Paul's connection info
         'password' : 'SaDa2903!',
         'host' : 'localhost',
         'database' : 'sportmanagementsystem',
-        'raise_on_warnings': True
+        'autocommit' : True
     }
 
-    return connection_Config_Dict_Doha
-
-
-def aadil_connection():
-
-    connection_config_dict = {
-        'user' : 'root',
-        'password': 'Aadil123!',
-        'host' : 'localhost',
-        'database' : 'sportmanagementsystem'
-    }
-
-    return connection_config_dict
-
-def doha_myConnection():
-    connection_config_dict = {
-        'user' : 'root',
-        'password' : 'SaDa2903!',
-        'host' : 'localhost',
-        'database' : 'sportmanagementsystem',
-    }
-    return connection_config_dict
+    return connection_Config_Dict_Paul
 
 
 

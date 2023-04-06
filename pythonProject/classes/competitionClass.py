@@ -1,8 +1,8 @@
 import pymysql
 from pymysql import Error
 
-from classes import connectionData
-from classes.matchClass import Match
+from . import connectionData
+from . import matchClass
 
 def check_competition_id(comp_id):
     try:
@@ -24,7 +24,6 @@ def check_competition_id(comp_id):
     except Error as e:
         print("Error with SQL", e)
 
-
 def get_competition_by_id(comp_id):
     try:
         connection = pymysql.connect(**connectionData.myConnection())
@@ -38,7 +37,9 @@ def get_competition_by_id(comp_id):
         cursor.execute(mysql_Query, (comp_id,))
         result = cursor.fetchall()
 
-        return result[0]
+        x = result[0]
+        returnComp = Competition(x[0], x[1], x[2], x[3], x[4], x[5])
+        return returnComp
 
     except Error as e:
         print("Error with SQL", e)
@@ -59,20 +60,43 @@ class Competition:
         try:
             connection = pymysql.connect(**connectionData.myConnection())
 
-            mysql_Query = """
-                INSERT INTO competition(competitionName, parentCompetitionId, competitionBody, sport, compLevel) VALUES
-                (%s, %s, %s, %s, %s)"""
-
             cursor = connection.cursor()
-            cursor.execute(mysql_Query,
+
+
+            mysql_Query = """
+                    INSERT INTO competition(competitionName, parentCompetitionId, competitionBody, sport, compLevel) 
+                    VALUES(%s, %s, %s, %s, %s);"""
+
+            if (self.parent_id != -1):
+                cursor.execute(mysql_Query,
                            (self.name, self.parent_id, self.body, self.sport, self.level))
 
+            else:
+                x= cursor.execute(mysql_Query,
+                               (self.name, None, self.body, self.sport, self.level))
 
         except Error as e:
             print("Error with SQL", e)
 
     def updateCompetition(self):
-        pass
+        try:
+            connection = pymysql.connect(**connectionData.myConnection())
+            cursor = connection.cursor()
+
+            mysql_Query = """
+                    UPDATE competition
+                    SET competitionName= %s, parentCompetitionId= %s, competitionBody= %s,  sport= %s, compLevel= %s
+                    WHERE competitionId = %s"""
+
+            if (self.parent_id != -1):
+                cursor.execute(mysql_Query,
+                               (self.name, self.parent_id, self.body, self.sport, self.level, self.competition_id))
+            else:
+                cursor.execute(mysql_Query,
+                               (self.name, None, self.body, self.sport, self.level, self.competition_id))
+
+        except Error as e:
+            print("Error with SQL", e)
 
     def printBasic(self):
         print("ID:",self.competition_id,"Name:",self.name)
@@ -127,7 +151,7 @@ class Competition:
 
             for x in result:
                 print()
-                currMatch = Match(x[0],x[2],x[3],x[5],x[1],x[4])
+                currMatch = matchClass.Match(x[0],x[2],x[3],x[5],x[1],x[4])
                 currMatch.printMatchDetails()
 
         except Error as e:

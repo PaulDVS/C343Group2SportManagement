@@ -1,9 +1,9 @@
 import pymysql
 from pymysql import Error
 
-from classes import connectionData
-from classes.teamClass import get_team_by_id, Team
-from classes.competitionClass import get_competition_by_id, Competition
+from . import connectionData
+from . import teamClass
+from . import competitionClass
 
 def check_match_id(match_id):
     try:
@@ -39,7 +39,9 @@ def get_match_by_id(match_id):
         cursor.execute(mysql_Query, (match_id,))
         result = cursor.fetchall()
 
-        return result[0]
+        x=result[0]
+        returnMatch = Match(x[0],x[2],x[3],x[5],x[1],x[4])
+        return returnMatch
 
     except Error as e:
         print("Error with SQL", e)
@@ -91,16 +93,16 @@ class Match:
         print("Match id: ",self.match_id)
         print("Score:",self.match_score)
         print("Team 1:", end=" ")
-        team1 = get_team_by_id(self.team1_id)
-        team1.printBasic()
+        team1 = teamClass.get_team_by_id(self.team1_id)
+        team1.basicPrint()
 
         print("Team 2:", end=" ")
-        team2 = get_team_by_id(self.team2_id)
-        team2.printBasic()
+        team2 = teamClass.get_team_by_id(self.team2_id)
+        team2.basicPrint()
 
         print("At "+ self.location)
         print("Competition:", end=" ")
-        comp = get_competition_by_id(self.competition_id)
+        comp = competitionClass.get_competition_by_id(self.competition_id)
         comp.printBasic()
 
 
