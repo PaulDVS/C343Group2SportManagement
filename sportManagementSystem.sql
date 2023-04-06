@@ -100,7 +100,7 @@ VALUES
 
 INSERT INTO competition(competitionId, competitionName, parentCompetitionId, competitionBody, sport, compLevel)
 VALUES
-	(1,"Championss League",0,"UEFA","Football","InterNational"),
+	(1,"Championss League", NULL,"UEFA","Football","InterNational"),
 	(2,"Vanarama National League",1,"The Football Association","Football","National"),
 	(3,"Bundesliga National League",1,"German Football Association","Football","National");
 
@@ -141,6 +141,18 @@ VALUES
 	(4,"Arsenal Stadium",1,5,"05:01",1),
 	(5,"Madrid Stadium",3,4,"04:03",1);
 
+INSERT INTO `teamcompetition` 
+VALUES 
+	(1,1),
+	(2,1),
+	(1,2),
+	(2,2),
+	(1,3),
+	(2,3),
+	(1,4),
+	(3,4),
+	(1,5),
+	(3,5);
 
 
 
