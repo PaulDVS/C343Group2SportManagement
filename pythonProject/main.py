@@ -55,20 +55,30 @@ def teamMenu():
             newTeam.addTeam()
 
         elif (ch == "2"):
-            teamId = input("Please enter id of team you want to update: ")
+            try:
+                teamId = input("Please enter id of team you want to update: ")
+                if not (check_team_id(teamId)):
+                    print("Record doesn't exist!")
+                    continue
 
-            currMatch = get_team_by_id(teamId)
-            currMatch.printTeamDetails()
+                get_team_by_id(teamId)
 
-            name = input("Please enter team name: ")
-            home = input("Please enter team home: ")
-            country = input("Please enter team country: ")
-            updateTeam = Team(teamId,name, home, country)
-            updateTeam.updateTeam()
+                name = input("Please enter team name: ")
+                home = input("Please enter team home: ")
+                country = input("Please enter team country: ")
+                updateTeam = Team(teamId, name, home, country)
+                updateTeam.updateTeam()
+            except:
+                print("Invalid Input!")
 
         elif (ch == "3"):
-            team_id = int(input("Enter team id: "))
-            print(get_team_by_id(team_id))
+            try:
+                team_id = int(input("Enter team id: "))
+                print("Team Id: ",get_team_by_id(team_id).team_id,"  Team Name: ",get_team_by_id(team_id).name,
+                      "  Team Home: ",get_team_by_id(team_id).home, "  Team Country: ", get_team_by_id(team_id).country)
+            except:
+                print("No such record!")
+
         elif (ch == "4"):
             Team.getAllTeams(self=None)
         elif (ch == "5"):
@@ -76,7 +86,15 @@ def teamMenu():
         elif (ch =='6'):
             Team.getTeamMatches(self=None)
         elif (ch == '7'):
-            Team.deleteTeam(self=None)
+            try:
+                ans = int(input('Enter the team id to be deleted:'))
+                if check_team_id(ans)==True:
+                    get_team_by_id(ans).deleteTeam()
+                    print("Team successfully deleted!")
+                else:
+                    print("No such team in database!")
+            except:
+                print("Error! Please enter a digit for team id!")
         elif (ch == "9"):
             print("Returning to Main")
         else:

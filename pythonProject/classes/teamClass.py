@@ -35,10 +35,10 @@ def get_team_by_id(team_id):
         result = my_cursor.fetchall()[0]
 
         # first index is id second is name ...etc
-        print ("Id:",result[0], " Team Name:", result[1], " Team Home:",result[2], " Team Country:",result[3])
-        #return(Team(result[0],result[1],result[2],result[3]))
+        #print ("Id:",result[0], " Team Name:", result[1], " Team Home:",result[2], " Team Country:",result[3])
+        return(Team(result[0],result[1],result[2],result[3]))
     except:
-        print("Record not found!")
+        print("")
 
 
 class Team:
@@ -68,8 +68,9 @@ class Team:
             mysql_Query = 'INSERT INTO team(teamId, teamName, teamHome, teamCountry) VALUES (%s, %s, %s, %s)'
             cursor.execute(mysql_Query,(self.team_id, self.name, self.home, self.country))
             conn.commit()
-        except Error as e:
-            print("Error adding team to database!", e)
+        except:
+            print("Error adding team to database!")
+
     def deleteTeam(self):
         try:
             config = connectionData.myConnection()
@@ -78,18 +79,17 @@ class Team:
 
             cursor.execute('select * from team')
             x = cursor.fetchall()
-            ans = int(input('Enter the team id to be deleted:'))
             for i in x:
                 i = list(i)
-                if i[0] == ans:
+                if i[0] == self.team_id:
                     cmd = 'delete from team where teamId=%s'
                     val = (i[0],)
                     cursor.execute(cmd, val)
                     conn.commit()
-                    print('Team deleted.')
                     break
-        except:
-            print("Error deleting record!")
+        except Error as e:
+            print("Error deleting record!",e)
+
 
 
     def getAllTeams(self):
@@ -99,16 +99,19 @@ class Team:
             cursor = conn.cursor()
             cursor.execute('select * from team order by teamId')
             x = cursor.fetchall()
-            space = '%18s %18s %18s %18s'
-            print(space % ('Id', 'Name', 'Home', 'Country'))
-            print('=' * 150)
-            for i in x:
-                for j in i:
-                    print('%19s' % j, end=' ')
-                print()
-            print('=' * 150)
-        except:
-            print("Table doesn't exist.")
+            if (len(x)==0):
+                print("No teams in database!")
+            else:
+                space = '%18s %18s %18s %18s'
+                print(space % ('Id', 'Name', 'Home', 'Country'))
+                print('=' * 150)
+                for i in x:
+                    for j in i:
+                        print('%19s' % j, end=' ')
+                    print()
+                print('=' * 150)
+        except Error as e:
+            print("Error accessing database!",e)
 
     def updateTeam(self):
         try:
@@ -124,33 +127,45 @@ class Team:
             print("Error updating database!", e)
 
     def getAllPlayers(self):
-        config = connectionData.myConnection()
-        conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
-        cursor = conn.cursor()
-        userInput=int(input("Enter team id: "))
-        cursor.execute('select * from player where teamId=%s',userInput)
-        x = cursor.fetchall()
-        space = '%18s %18s %18s %18s'
-        print(space % ('Id', 'Name', 'Position', 'Team'))
-        print('=' * 150)
-        for i in x:
-            for j in i:
-                print('%19s' % j, end=' ')
-            print()
-        print('=' * 150)
+        try:
+            config = connectionData.myConnection()
+            conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+            cursor = conn.cursor()
+            userInput=int(input("Enter team id: "))
+            cursor.execute('select * from player where teamId=%s',userInput)
+            x = cursor.fetchall()
+            if len(x)!=0:
+                space = '%18s %18s %18s %18s'
+                print(space % ('Id', 'Name', 'Position', 'Team'))
+                print('=' * 150)
+                for i in x:
+                    for j in i:
+                        print('%19s' % j, end=' ')
+                    print()
+                print('=' * 150)
+            else:
+                print("No such team in database!")
+        except:
+            print("Error connecting to database!")
 
     def getTeamMatches(self):
-        config = connectionData.myConnection()
-        conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
-        cursor = conn.cursor()
-        userInput=int(input("Enter team id: "))
-        cursor.execute('select * from game where team1Id=%s or team2Id=%s',(userInput,userInput))
-        x = cursor.fetchall()
-        space = '%18s %18s %18s %18s %18s %18s'
-        print(space % ('Id', 'Location', 'Team 1 Id', 'Team 2 Id', 'Score', 'Competition Id'))
-        print('=' * 150)
-        for i in x:
-            for j in i:
-                print('%19s' % j, end=' ')
-            print()
-        print('=' * 150)
+        try:
+            config = connectionData.myConnection()
+            conn = pymysql.connect(host=config['host'], user=config['user'], passwd=config['password'],database=config['database'])
+            cursor = conn.cursor()
+            userInput=int(input("Enter team id: "))
+            cursor.execute('select * from game where team1Id=%s or team2Id=%s',(userInput,userInput))
+            x = cursor.fetchall()
+            if len(x) != 0:
+                space = '%18s %18s %18s %18s %18s %18s'
+                print(space % ('Id', 'Location', 'Team 1 Id', 'Team 2 Id', 'Score', 'Competition Id'))
+                print('=' * 150)
+                for i in x:
+                    for j in i:
+                        print('%19s' % j, end=' ')
+                    print()
+                print('=' * 150)
+            else:
+                print("No matches found for this team!")
+        except:
+            print("Error connecting to database!")
