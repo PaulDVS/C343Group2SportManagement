@@ -118,12 +118,15 @@ def teamMenu():
         print()
 
         if (ch == "1"):
-            team_id = int(input("Enter team id: "))
-            name = input("Enter team name: ")
-            home = input("Enter team home: ")
-            country = input("Enter team country: ")
-            newTeam = Team(team_id, name, home, country)
-            newTeam.addTeam()
+            try:
+                team_id = int(input("Enter team id: "))
+                name = input("Enter team name: ")
+                home = input("Enter team home: ")
+                country = input("Enter team country: ")
+                newTeam = Team(team_id, name, home, country)
+                newTeam.addTeam()
+            except:
+                print("Invalid Input!")
 
         elif (ch == "2"):
             try:
@@ -327,7 +330,7 @@ def playerMenu():
             player_id = int(input("Enter the player id whose details you wish to see"))
             while not check_player_id(player_id) or type(player_id) != int:
                 print("This ID is invalid!")
-                player_id = int(input("Enter the player id whose details you wish to see"))
+                player_id = int(input("Enter the player id whose details you wish to see:\n"))
             player = get_player_by_id(player_id)
             player.print_player()
 
