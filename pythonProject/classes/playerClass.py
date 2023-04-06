@@ -66,6 +66,8 @@ class Player:
             sql = f'INSERT into player(playerName,positionId,teamId) values(%s,%s,%s)'
             values = [self.name, self.position_id, self.team_id]
             cursor.execute(sql, values)
+            id = cursor.lastrowid  # added line
+            return id  # added lin
 
         except pymysql.err.OperationalError as e:
             print("Database could not be found please ensure it exists")

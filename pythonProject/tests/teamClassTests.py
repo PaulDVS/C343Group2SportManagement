@@ -1,7 +1,7 @@
 import unittest
 import pytest
 
-from pythonProject.classes.teamClass import Team, check_team_id, get_team_by_id
+from classes.teamClass import Team, check_team_id, get_team_by_id
 
 
 class TestTeam(unittest.TestCase):
