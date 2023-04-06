@@ -52,7 +52,7 @@ class Team:
         return super().__str__()
 
     def basicPrint(self):
-        print(self.id,self.name)
+        print(self.team_id,self.name)
     def printTeamDetails(self):
         print("Team id: ",self.team_id)
         print("Team Name:",self.name)

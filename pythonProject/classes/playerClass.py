@@ -43,7 +43,7 @@ def get_player_by_id(player_id):
         result = my_cursor.fetchall()[0]
 
         # first index is id second is name ...etc
-        return Player(result[0], result[1], result[2], result[3])
+        return Player(result[1], result[2], result[3], result[0])
     except:
         print("Record not found!")
 

@@ -327,7 +327,7 @@ def playerMenu():
             player_id = int(input("Enter the player id whose details you wish to see"))
             while not check_player_id(player_id) or type(player_id) != int:
                 print("This ID is invalid!")
-                player_id = input("Enter the player id whose details you wish to see")
+                player_id = int(input("Enter the player id whose details you wish to see"))
             player = get_player_by_id(player_id)
             player.print_player()
 
